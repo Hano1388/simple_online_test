@@ -5,6 +5,7 @@ const createError   = require('http-errors'),
       logger        = require('morgan'),
 
       indexRouter   = require('./routes/index'),
+      questions     = require('./routes/questions'),
       app           = express();
 
 // view engine setup
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/questions', questions);
 
 
 // catch 404 and forward to error handler

@@ -1,7 +1,7 @@
 const options = {
     development: {
         client: 'pg',
-        connection: 'postgres://localhost/questionAndAnswers',
+        connection: 'postgres://localhost/questionsAndAnswers',
         migrations: {
             directory: __dirname + '/db/migrations',
           },

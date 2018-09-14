@@ -9,6 +9,7 @@ exports.up = function(knex, Promise) {
   .createTable('answers', table => {
     table.increments();
     table.text('answer').notNullable();
+    table.boolean('is_correct_answer').defaultTo(false)
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
     table.integer('question_id').references('id').inTable('questions');

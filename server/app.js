@@ -6,6 +6,7 @@ const createError   = require('http-errors'),
 
       indexRouter   = require('./routes/index'),
       questions     = require('./routes/questions'),
+      answers     = require('./routes/answers'),
       app           = express();
 
 // view engine setup
@@ -18,8 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes 
 app.use('/', indexRouter);
 app.use('/questions', questions);
+app.use('/answers', answers);
 
 
 // catch 404 and forward to error handler

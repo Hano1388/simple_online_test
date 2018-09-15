@@ -60,4 +60,26 @@ router.post('/', (req, res, next) => {
   })
 });
 
+// update a question endpoint
+// PUT: localhost:3000/questions/:id
+router.put('/:id', (req, res, next) => {
+  // raw SQL
+  knex.raw('update answers set ' + req.body.question  + ' = ? where id = ?', [req.body.question, req.params.id])
+
+  // KNEX WAY
+  knex('questions').where('id', req.params.id)
+     .update({
+       question: req.body.question
+     })
+     .then(() => {
+       knex.select().from('questions').where('id', req.params.id)
+           .then(question => {
+             res.send({
+               question,
+               message: 'Question Updated successfully!'
+             });
+           });
+     });
+});
+
 module.exports = router;

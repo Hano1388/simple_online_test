@@ -3,7 +3,7 @@ const express = require('express');
       knex    = require('../db/knex');
 
 // get an answer for updating and deleting
-// localhost:3000/answers/:id
+// GET: localhost:3000/answers/:id
 router.get('/:id', (req, res) => {
   let { id } = req.params;
 
@@ -14,7 +14,7 @@ router.get('/:id', (req, res) => {
 });
 
 // create answers for the question
-// localhost:3000/answers/
+// POST: localhost:3000/answers/
 router.post('/', (req, res) => {
   // console.log('request object body: ', req.body);
   knex.raw('insert into answers(answer, is_correct_answer, question_id) values(?, ?, ?)', ['spiders', true, 11])
@@ -25,6 +25,20 @@ router.post('/', (req, res) => {
     })
   })
 });
+
+// delete an answer
+// DELETE: localhost:3000/answers/:id
+router.delete('/:id', (req, res) => {
+  knex.raw('delete from answers where id = ?', [req.params.id])
+      .then(answer => {
+        res.send({
+          // answer: answer.rows,
+          message: 'Answer deleted successfully!'
+        })
+      });
+});
+
+
 
 
 

@@ -38,8 +38,25 @@ router.delete('/:id', (req, res) => {
       });
 });
 
-
-
-
+// updating an answer
+// PUT: localhost:3000/answers/:id
+router.put('/:id', (req, res) => {
+  let { answer, is_correct_answer, question_id } = req.body;
+  knex('answers').where('id', req.params.id)
+    .update({
+      answer,
+      is_correct_answer,
+      question_id
+    })
+      .then(() => {
+        knex.select().from('answers').where('id', req.params.id)
+            .then(answer => {
+              res.send({
+                answer,
+                message: 'Answer updated successfully!'
+              });
+            });
+      });
+});
 
 module.exports = router;

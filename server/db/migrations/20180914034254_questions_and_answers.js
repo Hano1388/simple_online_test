@@ -12,11 +12,11 @@ exports.up = function(knex, Promise) {
     table.boolean('is_correct_answer').defaultTo(false)
     table.timestamp('created_at').defaultTo(knex.fn.now());
     table.timestamp('updated_at').defaultTo(knex.fn.now());
-    table.integer('question_id').references('id').inTable('questions');
+    table.integer('question_id').references('id').inTable('questions').onDelete('cascade');;
   })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('questions')
-                    .dropTable('answers');
+  return knex.schema.dropTable('answers')
+                    .dropTable('questions');
 };

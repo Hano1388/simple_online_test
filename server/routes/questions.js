@@ -3,9 +3,9 @@ const express = require('express');
       knex    = require('../db/knex');
 
 // get all questions from questions table and their relative answers
-// localhost:3000/questions
+// GET: localhost:3000/questions
 router.get('/', (req, res, next) => {
-  // KNEX WAY
+  // KNEX
   // knex.from('questions').innerJoin('answers', 'questions.id', 'answers.question_id')
   //     .then(questions => {
   //       res.send(questions);
@@ -18,22 +18,22 @@ router.get('/', (req, res, next) => {
 });
 
 // get a question and its related answers endpoint
-// localhost:3000/questions/:id
+// GET: localhost:3000/questions/:id
 router.get('/:id', (req, res, next) => {
     let { id } = req.params;
     knex.select('question').from('questions').where('id', id)
-        .then((question) => {
-          knex.select('answer').from('questions')
-              .innerJoin('answers', 'questions.id', 'answers.question_id')
-              .where('questions.id', id)
-              .then(answers => {
-                  res.send({ question, answers });
-              });
-        })
+      .then((question) => {
+        knex.select('answer').from('questions')
+            .innerJoin('answers', 'questions.id', 'answers.question_id')
+            .where('questions.id', id)
+            .then(answers => {
+                res.send({ question, answers });
+        });
+      });
 });
 
 // delete a question and its related answers endpoint
-// localhost:3000/questions/:id
+// DELETE: localhost:3000/questions/:id
 router.delete('/:id', (req, res, next) => {
   let { id } = req.params;
   knex('answers').where('question_id', id).del()
@@ -48,7 +48,7 @@ router.delete('/:id', (req, res, next) => {
 });
 
 // create a question endpoint
-// localhost:3000/questions
+// POST: localhost:3000/questions
 router.post('/', (req, res, next) => {
   // console.log('request object body: ', req.body);
   knex.raw('insert into questions(question) values(?)', ['What is the most dangerous jungle?'])
@@ -63,10 +63,7 @@ router.post('/', (req, res, next) => {
 // update a question endpoint
 // PUT: localhost:3000/questions/:id
 router.put('/:id', (req, res, next) => {
-  // raw SQL
-  knex.raw('update answers set ' + req.body.question  + ' = ? where id = ?', [req.body.question, req.params.id])
-
-  // KNEX WAY
+  let { id } = req.params;
   knex('questions').where('id', req.params.id)
      .update({
        question: req.body.question
@@ -76,7 +73,7 @@ router.put('/:id', (req, res, next) => {
            .then(question => {
              res.send({
                question,
-               message: 'Question Updated successfully!'
+               message: 'Question updated successfully!'
              });
            });
      });

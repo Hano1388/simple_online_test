@@ -3,6 +3,7 @@ const createError   = require('http-errors'),
       path          = require('path'),
       cookieParser  = require('cookie-parser'),
       logger        = require('morgan'),
+      cors          = require('cors'),
 
       indexRouter   = require('./routes/index'),
       questions     = require('./routes/questions'),
@@ -19,7 +20,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// routes 
+// Set up a whitelist and check against it:
+var whitelist = ['http://localhost:8080']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions));
+
+// routes
 app.use('/', indexRouter);
 app.use('/questions', questions);
 app.use('/answers', answers);

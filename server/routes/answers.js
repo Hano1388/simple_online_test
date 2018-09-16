@@ -2,6 +2,15 @@ const express = require('express');
       router  = express.Router();
       knex    = require('../db/knex');
 
+
+// get all answers
+// GET: localhost:3000/answers
+router.get('/', (req, res) => {
+  knex.raw('select * from answers').then(answers => {
+    res.send({ answers: answers.rows })
+  });
+})
+
 // get an answer for updating and deleting
 // GET: localhost:3000/answers/:id
 router.get('/:id', (req, res) => {

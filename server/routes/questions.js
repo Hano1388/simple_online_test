@@ -12,7 +12,10 @@ router.get('/', (req, res, next) => {
   //     });
 
   // Raw SQL
-  knex.raw('select * from questions t1, answers t2 where t1.id = t2.question_id').then(questions => {
+  // knex.raw('select * from questions t1, answers t2 where t1.id = t2.question_id').then(questions => {
+  //   res.send({ questions: questions.rows })
+  // });
+  knex.raw('select * from questions').then(questions => {
     res.send({ questions: questions.rows })
   });
 });

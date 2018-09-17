@@ -7,7 +7,6 @@ export default class Answers extends React.Component {
         questionAnswers = allAnswers.filter(obj => {
       return obj.question_id === currentQuestion;
     });
-    // debugger;
     return (
       <ul className="list-grow">
         {questionAnswers.map((obj,i) => (

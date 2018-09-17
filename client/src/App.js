@@ -4,7 +4,7 @@ import Questions from './components/questions'
 class App extends Component {
   render() {
     return (
-      <div className="jumbotron">
+      <div className="main-container">
         <Questions />
       </div>
     );

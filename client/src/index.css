@@ -3,3 +3,19 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.main-container {
+  width: 80%;
+  margin-left: calc(20%/2);
+  margin-top: 10px;
+}
+.submit-and-result {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.score {
+  margin-left: 20px;
+  font-size: 20px;
+  background-color: whitesmoke;
+  color: maroon;
+}

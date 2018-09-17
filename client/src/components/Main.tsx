@@ -1,35 +1,63 @@
 import * as React from 'react';
 
-export class Main extends React.Component<any, IState> {
-  constructor(props: any) {
+export class Main extends React.Component<{}, IState> {
+  constructor(props, {}) {
     super(props);
     this.state = {
-      isLoaded: false
+      questions:[],
+      answers: []
     }
   }
   componentDidMount() {
-    console.log('HELLO');
-    const URL     = 'http://localhost:3000/questions',
-          apiCall = fetch(URL);
+    const questionsURL = 'http://localhost:3000/questions',
+          answersURL   = 'http://localhost:3000/answers',
+          GetQuestions = fetch(questionsURL),
+          GetAnswers   = fetch(answersURL);
 
-    apiCall.then(response => {
+    GetQuestions.then(response => {
       return response.json();
     }).then(result => {
-      console.log(result);
       this.setState({
-        isLoaded: true
+        questions: result.questions
       })
     })
+    .catch(err => console.log(err));
+
+    GetAnswers.then(response => {
+      return response.json();
+    }).then(result => {
+      this.setState({
+        answers: result.answers
+      })
+    })
+    .catch(err => console.log(err));
   }
 
   render() {
-    console.log(this.state.isLoaded);
+    debugger;
+    console.log('State for Questions: ', this.state)
     return(
       <h2> Hello World </h2>
     )
   }
 }
 
+export interface questionsObject {
+    id: number;
+    question: string;
+    created_at: any;
+    updated_at: any;
+}
+
+export interface answersObject {
+    id: number;
+    answer: string;
+    created_at: any;
+    updated_at: any;
+    question_id: number;
+}
+//
 interface IState {
-  isLoaded: Boolean
+  questions: Array<questionsObject>
+  answers: Array<answersObject>
 }

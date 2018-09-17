@@ -11,6 +11,16 @@ router.get('/', (req, res) => {
   });
 })
 
+// get only correct answers
+// GET: localhost:3000/answers/correct
+router.get('/correct', (req, res) => {
+  knex.raw('select id from answers where is_correct_answer = ?', [true])
+      .then(answerID => {
+        res.send(answerID.rows);
+      });
+});
+
+
 // get an answer for updating and deleting
 // GET: localhost:3000/answers/:id
 router.get('/:id', (req, res) => {

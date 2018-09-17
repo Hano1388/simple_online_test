@@ -12,7 +12,7 @@ export default class Answers extends React.Component {
       <ul className="list-grow">
         {questionAnswers.map((obj,i) => (
           <li className="list-group-item row" key={i}>
-            <div className="col-xs-6"><input type="radio" name={"questio(" + obj.question_id + ")"} value={"questio(" + obj.question_id + ")"} /> {obj.answer}</div>
+            <div className="col-xs-6"><input type="radio" name={"questio(" + obj.question_id + ")"} value={obj.id} /> {obj.answer}</div>
           </li>
         ))}
       </ul>

@@ -51,7 +51,7 @@ export default class Questions extends React.Component {
           {(questions.length > 0 && answers.length > 0) ?
 					 questions.map((question,i) => (
 						<li className="list-group-item row" key={i}>
-              <div className="col-xs-6">{question.question} </div>
+              <div className="col-xs-6"><strong>{i + 1}. {question.question} </strong></div>
               <Answers
                 question_id={question.id}
                 answers={this.state.answers} />

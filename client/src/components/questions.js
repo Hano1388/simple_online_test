@@ -37,6 +37,9 @@ export default class Questions extends React.Component {
     })
     .catch(err => console.log(err));
   }
+  calculateResult() {
+
+  }
   render() {
     let { questions, answers } = this.state;
     // debugger;
@@ -58,6 +61,7 @@ export default class Questions extends React.Component {
 						</li>
 					 )): ''}
 				</ul>
+        <button type="button" onClick={this.calculateResult()}>Calculate</button>
       </div>
     )
   }

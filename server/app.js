@@ -21,17 +21,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up a whitelist and check against it:
-var whitelist = ['http://localhost:3001']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-app.use(cors(corsOptions));
+// var whitelist = ['http://localhost:8080', 'http://localhost:3000']
+// var corsOptions = {
+//   origin: (origin, callback) => {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
+// app.use(cors(corsOptions));
+
+// or bellow cors are setup for all origins
+app.use(cors());
 
 // routes
 app.use('/', indexRouter);

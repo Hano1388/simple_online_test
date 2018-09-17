@@ -53,7 +53,6 @@ router.delete('/:id', (req, res, next) => {
 // create a question endpoint
 // POST: localhost:3000/questions
 router.post('/', (req, res, next) => {
-  // console.log('request object body: ', req.body);
   knex.raw('insert into questions(question) values(?)', ['What is the most dangerous jungle?'])
   .then(() => {
     knex.raw('select * from questions order by id desc limit 1')

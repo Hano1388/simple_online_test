@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up a whitelist and check against it:
-var whitelist = ['http://localhost:8080']
+var whitelist = ['http://localhost:3001']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
